@@ -14,6 +14,7 @@ const movieApi = createApi({
           return {
             url: `/?s=${inputSearchTitle}&apikey=${keyApi}`,
             method: "GET",
+            
          
           };
         },

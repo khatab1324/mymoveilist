@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { stat } from "fs";
 const moviesSlice = createSlice({
   name: "movie",
   initialState: { searchInput: "",movieThatUserClickedFromSearchBar:{} },

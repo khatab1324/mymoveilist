@@ -19,7 +19,6 @@ if(Object.keys(movieSelectMovie).length === 0){
         <h2>Type:{movieSelectMovie.Type}</h2>
         <h2>year:{movieSelectMovie.Year}</h2>
         </div>
-        
         </div>
         <div className="flex flex-row  justify-center shadow-md bg-slate-300">
             <div className="  ">
