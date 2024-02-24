@@ -1,25 +1,21 @@
 // https://www.omdbapi.com/?s=dark&apikey=1d057e15
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-const keyApi = "1d057e15";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+const keyApi = '1d057e15';
 const movieApi = createApi({
-  reducerPath: "movieApi",
+  reducerPath: 'movieApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://www.omdbapi.com",
-    
-  },),
+    baseUrl: 'https://www.omdbapi.com',
+  }),
   endpoints(builder) {
     return {
       fetchMovie: builder.query({
         query: (inputSearchTitle) => {
           return {
             url: `/?s=${inputSearchTitle}&apikey=${keyApi}`,
-            method: "GET",
-            
-         
+            method: 'GET',
           };
         },
       }),
-      
     };
   },
 });
