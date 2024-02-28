@@ -21,16 +21,24 @@ function ShowMovie() {
   } else {
     renderMovie = (
       <div>
-        <div className="flex flex-row shadow-md bg-slate-300">
-          <img
-            className="w-40  p-4 rounded-md"
-            src={movieSelectMovie.Poster}
-            alt=""
-          />
-          <div className=" mx-3">
-            <h2>title:{movieSelectMovie.Title}</h2>
-            <h2>Type:{movieSelectMovie.Type}</h2>
-            <h2>year:{movieSelectMovie.Year}</h2>
+        <div className="flex flex-row shadow-md bg-slate-300 items-center">
+          <div className="w-40">
+            <img
+              className="max-w-full h-auto p-4 rounded-3xl"
+              src={movieSelectMovie.Poster}
+              alt=""
+            />
+          </div>
+          <div className="px-6  pb-2 flex flex-col">
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              title:{movieSelectMovie.Title}
+            </span>
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              year: {movieSelectMovie.Year}
+            </span>
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              type: {movieSelectMovie.Type}
+            </span>
           </div>
         </div>
         <div className="flex flex-row  justify-center shadow-md bg-slate-300">

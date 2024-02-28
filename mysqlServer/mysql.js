@@ -7,7 +7,7 @@ const crypto = require('crypto');
 var bcrypt = require('bcryptjs');
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'adminMovieList',
+  user: 'root',
   password: 'Pass_1122',
   database: 'mymovielist',
 });
@@ -128,7 +128,21 @@ app.post('/addmovie', async (req, res) => {
       );
     });
     const userId = idResult[0].id;
-
+    const checkIfMovieInList = await new Promise((resolve, reject) => {
+      connection.query(
+        `select movie_id from userMovies where userId="${userId}" and movie_id="${imdbID}"`,
+        (err, results) => {
+          if (err) reject(err);
+          if (results.length > 0) {
+            reject({
+              errorMovieFound: 'you have added this movie in your list',
+            });
+          }
+          resolve();
+        }
+      );
+    });
+    console.log('check', checkIfMovieInList);
     const addingMovieResult = await new Promise((resolve, reject) => {
       connection.query(
         `insert into userMovies values("${imdbID}","${Title}","${Year}","${Type}","${Poster}","null",0,"${userId}")`,
