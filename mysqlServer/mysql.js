@@ -1,3 +1,4 @@
+const { PrismaClient, Prisma } = require('@prisma/client');
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -5,17 +6,16 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 var bcrypt = require('bcryptjs');
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Pass_1122',
-  database: 'mymovielist',
-});
-
-connection.connect((err) => {
-  if (err) throw err;
-  console.log('Connected to the MySQL database!');
-});
+const Response = require('./domain/response');
+const prisma = new PrismaClient();
+const HttpStatus = {
+  OK: { code: 200, status: 'OK' },
+  CREATED: { code: 201, status: 'CREATED' },
+  NO_CONTENT: { code: 204, status: 'NO_CONTENT' },
+  BAD_REQUEST: { code: 400, status: 'BAD_REQUEST' },
+  NOT_FOUND: { code: 404, status: 'NOT_FOUND' },
+  INTERNAL_SERVER_ERROR: { code: 500, status: 'INTERNAL_SERVER_ERROR' },
+};
 app.use(
   cors({
     origin: 'http://localhost:4200', // Replace with your allowed origin
@@ -25,140 +25,157 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/getUser', async (req, res) => {
+app.post('/getuser', async (req, res) => {
   const { username, password } = req.body;
+  console.log(username);
   try {
-    const usernameResult = await new Promise((resolve, reject) => {
-      connection.query(
-        `SELECT username,password FROM users WHERE username = "${username}"`,
-        async (err, results) => {
-          if (err) {
-            reject({ errorUsername: 'usernameNotFound' });
-          } else {
-            if (results.length === 0)
-              reject({ errorUsername: 'usernameNotFound' });
-            else if (!(await bcrypt.compare(password, results[0].password))) {
-              reject({ errorPassword: 'wrong password' });
-            } else {
-              resolve(results);
-            }
-          }
-        }
-      );
+    const user = await prisma.users.findMany({
+      where: { username },
     });
-    const usernameFromDataBase = usernameResult[0].username;
-    const sendUser = { usernameFromDataBase };
-    res.send(sendUser);
+    if (user.length === 0) {
+      res.status(HttpStatus.NOT_FOUND.code).send(
+        new Response(HttpStatus.NOT_FOUND.code, HttpStatus.NOT_FOUND.status, {
+          usernameError: 'username not found',
+        })
+      );
+    } else if (!(await bcrypt.compare(password, user[0].password))) {
+      res.status(HttpStatus.NOT_FOUND.code).send(
+        new Response(HttpStatus.NOT_FOUND.code, HttpStatus.NOT_FOUND.status, {
+          passwordError: 'password wrong',
+        })
+      );
+    } else {
+      res
+        .status(HttpStatus.OK.code)
+        .send(
+          new Response(
+            HttpStatus.OK.code,
+            HttpStatus.OK.status,
+            'you are sign in'
+          )
+        );
+    }
   } catch (error) {
-    console.error('Error fetching user:', error.sqlMessage);
+    console.error('Error fetching user:', error);
     res.status(500).json(error);
   }
 });
-app.post('/addUser', async (req, res) => {
+
+//
+
+app.post('/adduser', async (req, res) => {
   console.log(req.body);
   const { username, password } = req.body;
-  //hash the password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const id = crypto.randomUUID();
-  connection.query(
-    `insert into users values ("${id}","${username}","${hashedPassword}")`,
-    (err, results) => {
-      if (err) {
-        res.status(500).json({ error: 'internal server error' });
-        throw err;
-      }
-      res.send(results);
-      console.log('its work');
-    }
-  );
-});
-app.get('/getMovies/:username', async (req, res) => {
-  const username = req.params.username;
-
   try {
-    const idResults = await new Promise((resolve, reject) => {
-      connection.query(
-        `SELECT id FROM users WHERE username = "${username}"`,
-        (err, results) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(results);
-          }
-        }
-      );
+    const newUser = await prisma.users.create({
+      data: {
+        id,
+        username,
+        password: hashedPassword,
+      },
     });
-    const id = idResults[0].id;
-    const results = await new Promise((resolve, reject) => {
-      connection.query(
-        `SELECT title, type, year, poster FROM userMovies WHERE userId = "${id}"`,
-        (err, results) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(results);
-          }
-        }
-      );
-    });
-
-    console.log('Your movies are selected');
-    res.send(results);
-  } catch (error) {
-    console.error('Error fetching movies:', error.sqlMessage);
-    res
-      .status(500)
-      .json({ error: 'Error fetching movies', sqlMessage: error.sqlMessage });
+    res.status(HttpStatus.OK.code).send(
+      new Response(HttpStatus.OK.code, HttpStatus.OK.status, 'user added', {
+        username,
+      })
+    );
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      if (e.code === 'P2002') {
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR.code)
+          .send(
+            new Response(
+              HttpStatus.INTERNAL_SERVER_ERROR.code,
+              HttpStatus.INTERNAL_SERVER_ERROR.status,
+              'username is already exist'
+            )
+          );
+      }
+    }
   }
 });
 
+//
+
+app.get('/getMovies/:username', async (req, res) => {
+  const username = req.params.username;
+  console.log(username);
+  try {
+    const { id } = await prisma.users.findUnique({ where: { username } });
+    const results = await prisma.userMovies.findMany({ where: { userId: id } });
+    console.log(results);
+    res
+      .status(HttpStatus.OK.code)
+      .send(
+        new Response(
+          HttpStatus.OK.code,
+          HttpStatus.OK.status,
+          `${username} movies are selected`,
+          results
+        )
+      );
+  } catch (error) {
+    console.error('Error fetching movies:', error);
+    res.status(500).json({ error: 'Error fetching movies', error });
+  }
+});
+
+//
+
 app.post('/addmovie', async (req, res) => {
   try {
-    const { username, movieSelectMovie } = req.body;
-
+    let { username, movieSelectMovie } = req.body;
     const { Title, Year, imdbID, Type, Poster } = movieSelectMovie;
-    const idResult = await new Promise((resolve, reject) => {
-      connection.query(
-        `select id from users where username="${username}"`,
-        (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        }
-      );
-    });
-    const userId = idResult[0].id;
-    const checkIfMovieInList = await new Promise((resolve, reject) => {
-      connection.query(
-        `select movie_id from userMovies where userId="${userId}" and movie_id="${imdbID}"`,
-        (err, results) => {
-          if (err) reject(err);
-          if (results.length > 0) {
-            reject({
-              errorMovieFound: 'you have added this movie in your list',
-            });
-          }
-          resolve();
-        }
-      );
+    const { id } = await prisma.users.findUnique({ where: { username } });
+    const checkIfMovieInList = await prisma.userMovies.findMany({
+      where: {
+        AND: [
+          { userId: id }, // Use the provided 'id' variable
+          { movie_id: imdbID },
+        ],
+      },
     });
     console.log('check', checkIfMovieInList);
-    const addingMovieResult = await new Promise((resolve, reject) => {
-      connection.query(
-        `insert into userMovies values("${imdbID}","${Title}","${Year}","${Type}","${Poster}","null",0,"${userId}")`,
-        (err, results) => {
-          if (err) reject(err);
-          resolve(results);
-        }
-      );
-    });
-    console.log('movie adding seccess');
-    res.send(addingMovieResult);
+    if (checkIfMovieInList.length === 0) {
+      const addingMovieResult = await prisma.userMovies.create({
+        data: {
+          movie_id: `${imdbID}`,
+          title: `${Title}`,
+          year: `${Year}`,
+          type: `${Type}`,
+          poster: `${Poster}`,
+          userId: `${id}`,
+        },
+      });
+      console.log('movie adding seccess');
+      res
+        .status(HttpStatus.CREATED.code)
+        .send(
+          new Response(
+            HttpStatus.CREATED.code,
+            HttpStatus.CREATED.status,
+            'movie added to the user list',
+            addingMovieResult
+          )
+        );
+    } else {
+      res
+        .status(HttpStatus.INTERNAL_SERVER_ERROR.code)
+        .send(
+          new Response(
+            HttpStatus.INTERNAL_SERVER_ERROR.code,
+            HttpStatus.INTERNAL_SERVER_ERROR.status,
+            'you add this movie to your list'
+          )
+        );
+    }
   } catch (error) {
-    console.error('Error adding movie ', error.sqlMessage);
-    res
-      .status(500)
-      .json({ error: "can't add movie", sqlMessage: error.sqlMessage });
+    console.error('Error adding movie ', error);
+    res.status(500).json({ error: "can't add movie", error });
   }
 });
 

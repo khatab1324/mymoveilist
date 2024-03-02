@@ -1,55 +1,44 @@
-import {
-  Form,
-  Link,
-  redirect,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
-import {
-  isUserSignIn,
-  useAddUserMutation,
-  useFetchusersQuery,
-  writeInUsernameInput,
-  writeUsername,
-  isSignInFormOpen,
-} from '../movieStore';
+import { Form, Link, useNavigate } from 'react-router-dom';
+import { isUserSignIn, useAddUserMutation, writeUsername } from '../movieStore';
 import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BsX } from 'react-icons/bs';
 import validationForm from '../validation/validationForm';
+
 function LogInForm() {
-  const [error, setError]: any = useState({});
+  const [validateError, setValidateError]: any = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [addUser, addUserResult] = useAddUserMutation();
+  const [addUser] = useAddUserMutation();
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const username: any = formData.get('username');
-    const password = formData.get('password');
+    const password: any = formData.get('password');
+   
     const passwordConfirm = formData.get('passwordConfirm');
-    const errorForm = validationForm(username, password, passwordConfirm);
-    console.log(errorForm);
+    let errorForm = validationForm(username, password, passwordConfirm);
     //TODO: use session library to store the sesstion rether then store as sold
     if (
       !errorForm.usernameError &&
       !errorForm.passwordError &&
       !errorForm.passwordConfirmError
     ) {
-      sessionStorage.setItem('username', username);
       const user = { username, password };
-      addUser(user);
-      dispatch(isUserSignIn(true));
-      dispatch(writeUsername(username));
-      navigate('/');
+      const { error } = (await addUser(user)) as any;
+      if (!error) {
+        sessionStorage.setItem('username', username);
+        dispatch(isUserSignIn(true));
+        dispatch(writeUsername(username));
+        navigate('/');
+      } else {
+        errorForm = { ...errorForm, usernameExist: error.data.message } as any;
+        setValidateError(errorForm);
+      }
     } else {
-      setError(errorForm);
+      setValidateError(errorForm);
     }
   };
-  const handleClickCloseLogInForm = () => {
-    navigate('/');
-  };
-
   return (
     <div className="fixed inset-0 bg-slate-600 opacity-80">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 fixed inset-16">
@@ -60,7 +49,7 @@ function LogInForm() {
         </Link>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <button
-            onClick={handleClickCloseLogInForm}
+            onClick={() => navigate('/')}
             className=" text-white px-2 py-2"
           >
             <BsX size={20} />
@@ -90,7 +79,9 @@ function LogInForm() {
                   placeholder="username"
                   required
                 />
-                {error.usernameError}
+                <p className=" text-gray-300">
+                  {validateError.usernameError || validateError.usernameExist}
+                </p>
               </div>
               <div>
                 <label
@@ -107,7 +98,7 @@ function LogInForm() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                 />
-                {error.passwordError}
+                <p className=" text-gray-300">{validateError.passwordError}</p>
               </div>
               <div>
                 <label
@@ -123,7 +114,9 @@ function LogInForm() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="enter the same password"
                 />
-                {error.passwordConfirmError}
+                <p className=" text-gray-300">
+                  {validateError.passwordConfirmError}
+                </p>
               </div>
               <button
                 type="submit"

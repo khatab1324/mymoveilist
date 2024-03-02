@@ -19,9 +19,12 @@ export default function MoviesList() {
       if (data.length === 0) {
         renderMovies = <p>there is no movies </p>;
       } else {
-        renderMovies = data.map((movie: any) => {
+        renderMovies = data.data.map((movie: any) => {
           return (
-            <div className="w-60  rounded-lg shadow-lg bg-slate-100 bg-opacity-50 mr-2 mt-3">
+            <div
+              className="w-60  rounded-lg shadow-lg bg-slate-100 bg-opacity-50 mr-2 mt-3"
+              key={movie.movie_id}
+            >
               <img
                 className="w-full h-2/3"
                 src={movie.poster}

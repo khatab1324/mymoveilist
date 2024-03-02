@@ -43,6 +43,7 @@ function App() {
   return (
     <div className=" min-h-screen bg-gradient-to-r from-cyan-300 to-slate-600">
       <RouterProvider router={router} />
+     
     </div>
   );
 }

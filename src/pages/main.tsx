@@ -43,7 +43,9 @@ function Main() {
         </div>
       </div> */}
       <div className="flex flex-col items-center justify-center mx-4 mt-20">
-        <h1 className="text-3xl font-bold p-4">my movie list</h1>
+        <h1 className="text-3xl font-bold p-4 bg-gradient-to-r from-blue-900 to-slate-600 bg-clip-text text-transparent">
+          my movie list
+        </h1>
         <SearchInput />
         <ShowMovie />
       </div>

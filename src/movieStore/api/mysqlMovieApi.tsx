@@ -7,7 +7,7 @@ const mysqlMoviesApi = createApi({
   endpoints(builder) {
     return {
       fetchUserMovies: builder.query({
-        providesTags: ['movies'],
+        providesTags: ['movies'] as any,
         query: (username) => {
           return {
             url: `/getMovies/${username}`,
@@ -16,7 +16,7 @@ const mysqlMoviesApi = createApi({
         },
       }),
       addUserMovie: builder.mutation({
-        invalidatesTags: ['movies'],
+        invalidatesTags: ['movies'] as any,
         query: ({ movieSelectMovie, username }) => ({
           url: '/addmovie',
           method: 'POST',

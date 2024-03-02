@@ -1,22 +1,11 @@
-import {
-  Form,
-  Link,
-  redirect,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
-import {
-  isUserSignIn,
-  useAddUserMutation,
-  useFetchuserQuery,
-  writeInUsernameInput,
-  writeUsername,
-  isSignInFormOpen,
-} from '../movieStore';
+import { Form, Link, useNavigate } from 'react-router-dom';
+import { isUserSignIn, useFetchuserQuery, writeUsername } from '../movieStore';
 import { useDispatch } from 'react-redux';
 import { BsX } from 'react-icons/bs';
 import { useState } from 'react';
+
 function SignInForm() {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
@@ -28,6 +17,8 @@ function SignInForm() {
       skip,
     }
   );
+  console.log(data);
+
   console.log(skip);
   if (isLoading) {
     console.log('isLoding');
@@ -43,8 +34,8 @@ function SignInForm() {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    setUsername(formData.get('username'));
-    setPassword(formData.get('password'));
+    setUsername(formData.get('username') as any);
+    setPassword(formData.get('password') as any);
     setSkip((prev) => false);
   };
 
@@ -90,7 +81,7 @@ function SignInForm() {
                   required
                 />
                 <p className=" text-gray-300">
-                  {error ? error.data.errorUsername : ''}
+                  {error ? error.data.message.usernameError : ''}
                 </p>
               </div>
               <div>
@@ -109,7 +100,7 @@ function SignInForm() {
                   required
                 />
                 <p className="text-gray-300">
-                  {error ? error.data.errorPassword : ''}
+                  {error ? error.data.message.passwordError : ''}
                 </p>
               </div>
 

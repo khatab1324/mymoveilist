@@ -10,7 +10,6 @@ function SearchInput() {
   const dispatch = useDispatch();
   const movieInputValue = useSelector((state: any) => state.movies);
   const [searchBarOpen, setSearchBarOpen] = useState(false);
-
   const { data, error, isFetching }: any = useFetchMovieQuery(
     movieInputValue.searchInput
   );
@@ -58,7 +57,6 @@ function SearchInput() {
         value={movieInputValue.searchInput}
         onChange={handleChangeInput}
         className="text-gray-900 border-gray-100 bg-gray-200 text-center w-96 h-12 rounded-md border border-gray-300 rounded-md focus:outline-none  focus:shadow-outline focus:border-gray-400 transition duration-200 ease-in-out  focus:placeholder-transparent "
-        // className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="search movie"
       />
       <h3>{searchBarOpen && content}</h3>
