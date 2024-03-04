@@ -1,6 +1,6 @@
 import ShowSideBar from '../components/showSideBar';
 
-export default function WishList() {
+export default function Account() {
   return (
     <div>
       <ShowSideBar />

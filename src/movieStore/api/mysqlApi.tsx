@@ -10,7 +10,7 @@ const mysqlApi = createApi({
       fetchuser: builder.query({
         providesTags: ['User'] as any,
         query: ({ username, password }) => ({
-          url: `/getuser/`,
+          url: `/getuser`,
           method: 'POST',
           body: {
             username,

@@ -5,7 +5,6 @@ import { BsX } from 'react-icons/bs';
 import { useState } from 'react';
 
 function SignInForm() {
-  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
@@ -44,14 +43,14 @@ function SignInForm() {
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-600 opacity-80">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 fixed inset-16">
+    <div className="fixed inset-0 bg-slate-600 ">
+      <div className=" flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 fixed inset-16 ">
         <Link to={'/'}>
           <p className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
             sign in movielist
           </p>
         </Link>
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div className=" w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 ">
           <button onClick={handleClickCloseLogInForm} className=" text-white ">
             <BsX size={20} />
           </button>

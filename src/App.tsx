@@ -6,6 +6,8 @@ import MoviePage from './pages/movies';
 import WishList from './pages/wishlist';
 import LogOut from './components/logOut';
 import LogInForm from './components/logInFrom';
+import Account from './pages/accountPage';
+import Appone from './pages/forTrying';
 function App() {
   const router = createBrowserRouter([
     {
@@ -39,11 +41,20 @@ function App() {
       element: <LogInForm />,
       errorElement: <ErrorPage />,
     },
+    {
+      path: '/account',
+      element: <Account />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: '/try',
+      element: <Appone />,
+      errorElement: <ErrorPage />,
+    },
   ]);
   return (
-    <div className=" min-h-screen bg-gradient-to-r from-cyan-300 to-slate-600">
+    <div className=" min-h-screen bg-gradient-to-r from-gray-800 to-slate-700">
       <RouterProvider router={router} />
-     
     </div>
   );
 }

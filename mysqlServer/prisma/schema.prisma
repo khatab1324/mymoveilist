@@ -15,7 +15,8 @@ model users {
 }
 
 model userMovies {
-  movie_id    String  @id
+  id          Int     @id @default(autoincrement())
+  movie_id    String
   users       users   @relation(fields: [userId], references: [id])
   userId      String
   title       String

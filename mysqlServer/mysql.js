@@ -107,7 +107,6 @@ app.get('/getMovies/:username', async (req, res) => {
   try {
     const { id } = await prisma.users.findUnique({ where: { username } });
     const results = await prisma.userMovies.findMany({ where: { userId: id } });
-    console.log(results);
     res
       .status(HttpStatus.OK.code)
       .send(
@@ -120,7 +119,7 @@ app.get('/getMovies/:username', async (req, res) => {
       );
   } catch (error) {
     console.error('Error fetching movies:', error);
-    res.status(500).json({ error: 'Error fetching movies', error });
+    res.status(500).json({ errorMessage: 'Error fetching movies', error });
   }
 });
 
@@ -175,7 +174,7 @@ app.post('/addmovie', async (req, res) => {
     }
   } catch (error) {
     console.error('Error adding movie ', error);
-    res.status(500).json({ error: "can't add movie", error });
+    res.status(500).json({ errorMessage: "can't add movie", error });
   }
 });
 

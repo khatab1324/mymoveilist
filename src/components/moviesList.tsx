@@ -16,8 +16,12 @@ export default function MoviesList() {
       renderMovies = error;
     } else {
       console.log(data || error);
-      if (data.length === 0) {
-        renderMovies = <p>there is no movies </p>;
+      if (data.data.length === 0) {
+        renderMovies = (
+          <p className="text-2xl font-bold text-center text-gray-800 mt-8 bg-white rounded-lg shadow-md p-4 transition-colors duration-500 hover:bg-gray-100">
+            No Movies Found
+          </p>
+        );
       } else {
         renderMovies = data.data.map((movie: any) => {
           return (
@@ -52,8 +56,12 @@ export default function MoviesList() {
   }
 
   return (
-    <div className=" ">
-      <ShowSideBar />
+    <div className="">
+      <div className=" flex flex-1 justify-end">
+        <span className="text-sm font-semibold leading-6 text-gray-900 relative group ">
+          <ShowSideBar />
+        </span>
+      </div>
       <div className="flex flex-wrap flex-row overflow-auto justify-center">
         {renderMovies}
       </div>
