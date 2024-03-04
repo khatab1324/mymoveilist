@@ -29,7 +29,7 @@ function SearchInput() {
     dispatch(addToMovieThatUserClickedFromSearchBar(movie));
   };
   let content;
-  if (isLoding) {
+  if (isFetching) {
     content = <Skeleton times={2} />;
   } else if (error) {
     content = 'There was an error: ' + error.message;

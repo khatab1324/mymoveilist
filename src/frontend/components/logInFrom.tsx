@@ -15,7 +15,7 @@ function LogInForm() {
     const formData = new FormData(event.target);
     const username: any = formData.get('username');
     const password: any = formData.get('password');
-   
+
     const passwordConfirm = formData.get('passwordConfirm');
     let errorForm = validationForm(username, password, passwordConfirm);
     //TODO: use session library to store the sesstion rether then store as sold

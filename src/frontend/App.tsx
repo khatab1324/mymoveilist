@@ -45,7 +45,6 @@ function App() {
       element: <Account />,
       errorElement: <ErrorPage />,
     },
-    
   ]);
   return (
     <div className=" min-h-screen bg-gradient-to-r from-gray-800 to-slate-700">

@@ -5,7 +5,6 @@ import {
 } from '../movieStore';
 import { useNavigate } from 'react-router-dom';
 function ShowMovie() {
-  
   const navigate = useNavigate();
   const [addUserMovie, addUserMovieResult] = useAddUserMovieMutation();
   const movieSelectMovie = useSelector(

@@ -1,11 +1,15 @@
 import ShowMovie from '../components/showMovie';
 import SearchInput from '../components/searchInput';
-import { useFetchMovieQuery } from '../movieStore';
+
 import ShowSideBar from '../components/showSideBar';
 import SignInButton from '../components/signInButton';
 import SingInForm from '../components/logInFrom';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { isUserSignIn, writeUsername, isSignInFormOpen } from '../movieStore';
+import {
+  isUserSignIn,
+  writeUsername,
+  isSignInFormOpen,
+} from '../movieStore';
 import { useDispatch } from 'react-redux';
 
 function Main() {
