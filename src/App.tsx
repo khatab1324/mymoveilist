@@ -7,7 +7,6 @@ import WishList from './pages/wishlist';
 import LogOut from './components/logOut';
 import LogInForm from './components/logInFrom';
 import Account from './pages/accountPage';
-import Appone from './pages/forTrying';
 function App() {
   const router = createBrowserRouter([
     {
@@ -46,11 +45,7 @@ function App() {
       element: <Account />,
       errorElement: <ErrorPage />,
     },
-    {
-      path: '/try',
-      element: <Appone />,
-      errorElement: <ErrorPage />,
-    },
+    
   ]);
   return (
     <div className=" min-h-screen bg-gradient-to-r from-gray-800 to-slate-700">

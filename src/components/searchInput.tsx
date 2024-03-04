@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFetchMovieQuery } from '../movieStore';
 import { useEffect, useState } from 'react';
 import { useDebouncedValue } from '../hooks/useDebounce';
+import Skeleton from './Skeleton';
 
 function SearchInput() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function SearchInput() {
     movieInputValue.searchInput,
     400
   );
-  const { data, error, isFetching }: any =
+  const { data, error, isLoding, isFetching }: any =
     useFetchMovieQuery(debouncedSearchTerm);
 
   const handleChangeInput = (e: any) => {
@@ -28,8 +29,8 @@ function SearchInput() {
     dispatch(addToMovieThatUserClickedFromSearchBar(movie));
   };
   let content;
-  if (isFetching) {
-    content = 'Loading...';
+  if (isLoding) {
+    content = <Skeleton times={2} />;
   } else if (error) {
     content = 'There was an error: ' + error.message;
   } else if (data.Search) {
