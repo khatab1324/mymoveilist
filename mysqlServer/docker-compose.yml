@@ -18,13 +18,11 @@ services:
       MYSQL_ROOT_PASSWORD: Pass_1122
       SERVICE_TAGS: prod
       SERVICE_NAME: mysqldb
-    networks:
-      - internamymovielistnet
 
   nodeapp:
     container_name: nodeappcontainermymovielist
     build: .
-    image: nodeapp:v1
+    image: nodeapp
     volumes:
       - $HOME/nodeapp:/code
     ports:
@@ -32,20 +30,9 @@ services:
     expose:
       - 3000
     environment:
-      DB_HOST: 'mysqlcontaiermymovielist'
-      DB_PORT: 3306
-      DB_USER: 'root'
-      DB_PASSWORD: 'Pass_1122'
-      DB_NAME: mymovielist
-      DB_CONNECTION_LIMIT: 20
-      SERVICE_TAGS: prod
-      SERVICE_NAME: nodeappservice
-      SERVER_PORT: 3000
-    depends_on:
-      - mysqldb
-    networks:
-      - internamymovielistnet
+      DATABASE_URL: 'mysql://root:Pass_1122@mysqldb:3306/mymovielist'
 
 networks:
-  internamymovielistnet:
+  internalnet:
     driver: bridge
+    external: true

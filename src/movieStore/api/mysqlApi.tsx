@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 const mysqlApi = createApi({
   reducerPath: 'mysqlApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3100/',
+    baseUrl: 'http://localhost:3000/',
   }),
   endpoints(builder) {
     return {

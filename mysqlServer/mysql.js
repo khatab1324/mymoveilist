@@ -2,7 +2,6 @@ const { PrismaClient, Prisma } = require('@prisma/client');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 var bcrypt = require('bcryptjs');
@@ -24,6 +23,10 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+  res.send('hi there');
+});
 
 app.post('/getuser', async (req, res) => {
   const { username, password } = req.body;
@@ -178,6 +181,6 @@ app.post('/addmovie', async (req, res) => {
   }
 });
 
-app.listen(3100, () => {
-  console.log('open on port 3100');
+app.listen(3000, () => {
+  console.log('open on port 3000');
 });
