@@ -54,7 +54,7 @@ function SearchInput() {
     );
   } else {
     content = (
-      <div className="flex items-center overflow-auto  relative max-w-sm mx-auto bg-white dark:bg-slate-700 dark:highlight-white/5 shadow-lg ring-1 ring-black/5 rounded-xl flex flex-col divide-y dark:divide-slate-200/5">
+      <div className="flex items-center overflow-auto   max-w-sm mx-auto bg-white dark:bg-slate-700 dark:highlight-white/5 shadow-lg ring-1 ring-black/5 rounded-xl flex flex-col divide-y dark:divide-slate-200/5">
         <div
           // onClick={() => handleClickOnMovie(item.imdbID)}
           className="flex p-2 cursor-pointer hover:bg-gray-200 transition flex items-center gap-4 p-4"
