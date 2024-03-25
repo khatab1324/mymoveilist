@@ -26,7 +26,7 @@ export default function validationForm(
   if (username.length < 4) {
     usernameError = 'username should be more then 4 ';
   }
-  //TODO: check the username in database
+
   if (passwordChar.length < 6) {
     passwordError = 'password should be more then 6 char';
   }
