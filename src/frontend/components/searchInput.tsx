@@ -35,7 +35,7 @@ function SearchInput() {
     content = 'There was an error: ' + error.message;
   } else if (data.Search) {
     content = (
-      <div className="overflow-auto h-72 relative max-w-sm mx-auto bg-white dark:bg-slate-700 dark:highlight-white/5 shadow-lg ring-1 ring-black/5 rounded-xl flex flex-col divide-y dark:divide-slate-200/5">
+      <div className="overflow-auto h-72  max-w-sm mx-auto bg-white dark:bg-slate-700 dark:highlight-white/5 shadow-lg ring-1 ring-black/5 rounded-xl flex flex-col divide-y dark:divide-slate-200/5">
         {data.Search.map((item: any, index: any) => (
           <div
             key={item.imdbID}
@@ -57,9 +57,9 @@ function SearchInput() {
       <div className="flex items-center overflow-auto   max-w-sm mx-auto bg-white dark:bg-slate-700 dark:highlight-white/5 shadow-lg ring-1 ring-black/5 rounded-xl flex flex-col divide-y dark:divide-slate-200/5">
         <div
           // onClick={() => handleClickOnMovie(item.imdbID)}
-          className="flex p-2 cursor-pointer hover:bg-gray-200 transition flex items-center gap-4 p-4"
+          className="flex p-2 cursor-pointer hover:bg-gray-200 transition items-center gap-4"
         >
-          <p class="text-center text-xl text-white">No movie found</p>
+          <p className="text-center text-xl text-white">No movie found</p>
         </div>
       </div>
     );
