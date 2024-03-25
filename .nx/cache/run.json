@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx build",
+    "startTime": "2024-03-25T18:42:06.990Z",
+    "endTime": "2024-03-25T18:42:09.533Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "mymovielist:build",
+      "target": "build",
+      "projectName": "mymovielist",
+      "hash": "7676877709704618880",
+      "startTime": "2024-03-25T18:42:06.994Z",
+      "endTime": "2024-03-25T18:42:09.532Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 0
+    }
+  ]
+}

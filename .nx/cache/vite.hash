@@ -1,0 +1,63 @@
+{
+  "9034407957223706948": {
+    "build": {
+      "command": "vite build",
+      "options": {
+        "cwd": "."
+      },
+      "cache": true,
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production",
+        {
+          "externalDependencies": [
+            "vite"
+          ]
+        }
+      ],
+      "outputs": [
+        "{projectRoot}/dist/mymovielist"
+      ]
+    },
+    "serve": {
+      "command": "vite serve",
+      "options": {
+        "cwd": "."
+      }
+    },
+    "preview": {
+      "command": "vite preview",
+      "options": {
+        "cwd": "."
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "build"
+      }
+    },
+    "test": {
+      "command": "vitest run",
+      "options": {
+        "cwd": "."
+      },
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "vitest"
+          ]
+        }
+      ],
+      "outputs": [
+        "{projectRoot}/coverage/mymovielist"
+      ]
+    }
+  }
+}
