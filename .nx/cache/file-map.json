@@ -87,84 +87,6 @@
   "fileMap": {
     "nonProjectFiles": [],
     "projectFileMap": {
-      ".vercel": [
-        {
-          "file": ".vercel/README.txt",
-          "hash": "14131471887446248118"
-        },
-        {
-          "file": ".vercel/project.json",
-          "hash": "2891070536385668765"
-        },
-        {
-          "file": ".vercel/vercel.json",
-          "hash": "10582072612538727129"
-        }
-      ],
-      "mysqlserver": [
-        {
-          "file": "src/mysqlServer/.gitignore",
-          "hash": "12975187279384539528"
-        },
-        {
-          "file": "src/mysqlServer/Dockerfile",
-          "hash": "16346585585462099726"
-        },
-        {
-          "file": "src/mysqlServer/docker-compose.yml",
-          "hash": "4411002546023495490"
-        },
-        {
-          "file": "src/mysqlServer/domain/response.js",
-          "hash": "3157708423024952659"
-        },
-        {
-          "file": "src/mysqlServer/mysql.js",
-          "hash": "1704607509586700972",
-          "deps": [
-            "npm:@prisma/client",
-            "npm:express",
-            "npm:cors",
-            "npm:body-parser",
-            "npm:crypto",
-            "npm:bcryptjs"
-          ]
-        },
-        {
-          "file": "src/mysqlServer/package-lock.json",
-          "hash": "16682579429907323111"
-        },
-        {
-          "file": "src/mysqlServer/package.json",
-          "hash": "11078990281595546690",
-          "deps": [
-            "npm:bcryptjs",
-            "npm:body-parser",
-            "npm:cors",
-            "npm:crypto",
-            "npm:express",
-            "npm:mysql",
-            "npm:pino",
-            "npm:pino-pretty"
-          ]
-        },
-        {
-          "file": "src/mysqlServer/prisma/migrations/20240301114416_init/migration.sql",
-          "hash": "9848177876270250895"
-        },
-        {
-          "file": "src/mysqlServer/prisma/migrations/20240304121236_mymovielistmigration/migration.sql",
-          "hash": "15340716249375598854"
-        },
-        {
-          "file": "src/mysqlServer/prisma/migrations/migration_lock.toml",
-          "hash": "8877461730101463416"
-        },
-        {
-          "file": "src/mysqlServer/prisma/schema.prisma",
-          "hash": "12087377016145490473"
-        }
-      ],
       "mymovielist": [
         {
           "file": ".eslintignore",
@@ -176,7 +98,7 @@
         },
         {
           "file": ".gitignore",
-          "hash": "6051327888054967620"
+          "hash": "8586383407936371009"
         },
         {
           "file": ".prettierignore",
@@ -208,12 +130,13 @@
         },
         {
           "file": "package.json",
-          "hash": "6070264832715872550",
+          "hash": "5595278314808220647",
           "deps": [
             "npm:@reduxjs/toolkit",
             "npm:argon2-browser",
             "npm:bcryptjs",
             "npm:body-parser",
+            "npm:classnames",
             "npm:cookie-parse",
             "npm:cors",
             "npm:crypto",
@@ -309,7 +232,7 @@
             "npm:react-router-dom",
             "npm:react-redux",
             "npm:react",
-            "npm:react-icons/bs"
+            "npm:react-icons"
           ]
         },
         {
@@ -350,9 +273,7 @@
           "deps": [
             "npm:react",
             "npm:react-router-dom",
-            "npm:react-icons/fa",
-            "npm:react-icons/ti",
-            "npm:react-icons/ai"
+            "npm:react-icons"
           ]
         },
         {
@@ -370,7 +291,7 @@
           "deps": [
             "npm:react-router-dom",
             "npm:react-redux",
-            "npm:react-icons/bs",
+            "npm:react-icons",
             "npm:react"
           ]
         },
@@ -389,29 +310,28 @@
           "file": "src/frontend/movieStore/api/movieApi.tsx",
           "hash": "8482030017657999940",
           "deps": [
-            "npm:@reduxjs/toolkit/query/react"
+            "npm:@reduxjs/toolkit"
           ]
         },
         {
           "file": "src/frontend/movieStore/api/mysqlApi.tsx",
           "hash": "14466070698176224091",
           "deps": [
-            "npm:@reduxjs/toolkit/query/react"
+            "npm:@reduxjs/toolkit"
           ]
         },
         {
           "file": "src/frontend/movieStore/api/mysqlMovieApi.tsx",
           "hash": "15639549689448768797",
           "deps": [
-            "npm:@reduxjs/toolkit/query/react"
+            "npm:@reduxjs/toolkit"
           ]
         },
         {
           "file": "src/frontend/movieStore/index.tsx",
           "hash": "8002154674121234677",
           "deps": [
-            "npm:@reduxjs/toolkit",
-            "npm:@reduxjs/toolkit/query"
+            "npm:@reduxjs/toolkit"
           ]
         },
         {
@@ -496,6 +416,70 @@
             "npm:@vitejs/plugin-react",
             "npm:@nx/vite"
           ]
+        }
+      ],
+      "mysqlserver": [
+        {
+          "file": "src/mysqlServer/.gitignore",
+          "hash": "12975187279384539528"
+        },
+        {
+          "file": "src/mysqlServer/Dockerfile",
+          "hash": "16346585585462099726"
+        },
+        {
+          "file": "src/mysqlServer/docker-compose.yml",
+          "hash": "4411002546023495490"
+        },
+        {
+          "file": "src/mysqlServer/domain/response.js",
+          "hash": "3157708423024952659"
+        },
+        {
+          "file": "src/mysqlServer/mysql.js",
+          "hash": "1704607509586700972",
+          "deps": [
+            "npm:@prisma/client",
+            "npm:express",
+            "npm:cors",
+            "npm:body-parser",
+            "npm:crypto",
+            "npm:bcryptjs"
+          ]
+        },
+        {
+          "file": "src/mysqlServer/package-lock.json",
+          "hash": "16682579429907323111"
+        },
+        {
+          "file": "src/mysqlServer/package.json",
+          "hash": "11078990281595546690",
+          "deps": [
+            "npm:bcryptjs",
+            "npm:body-parser",
+            "npm:cors",
+            "npm:crypto",
+            "npm:express",
+            "npm:mysql",
+            "npm:pino",
+            "npm:pino-pretty"
+          ]
+        },
+        {
+          "file": "src/mysqlServer/prisma/migrations/20240301114416_init/migration.sql",
+          "hash": "9848177876270250895"
+        },
+        {
+          "file": "src/mysqlServer/prisma/migrations/20240304121236_mymovielistmigration/migration.sql",
+          "hash": "15340716249375598854"
+        },
+        {
+          "file": "src/mysqlServer/prisma/migrations/migration_lock.toml",
+          "hash": "8877461730101463416"
+        },
+        {
+          "file": "src/mysqlServer/prisma/schema.prisma",
+          "hash": "12087377016145490473"
         }
       ]
     }

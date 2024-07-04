@@ -31,39 +31,6 @@
         "tags": []
       }
     },
-    ".vercel": {
-      "name": ".vercel",
-      "type": "lib",
-      "data": {
-        "root": ".vercel",
-        "targets": {
-          "lint": {
-            "cache": true,
-            "options": {
-              "cwd": ".vercel",
-              "command": "eslint ."
-            },
-            "inputs": [
-              "default",
-              "{workspaceRoot}/.eslintrc.json",
-              "{workspaceRoot}/tools/eslint-rules/**/*",
-              {
-                "externalDependencies": [
-                  "eslint"
-                ]
-              }
-            ],
-            "executor": "nx:run-commands",
-            "configurations": {}
-          }
-        },
-        "name": ".vercel",
-        "orgId": "team_0HJ9gkXvdLIjeHPv04GxGwRA",
-        "projectId": "prj_bzQ6ta930ldmWcDp7Va2UCkYBZAI",
-        "implicitDependencies": [],
-        "tags": []
-      }
-    },
     "mymovielist": {
       "name": "mymovielist",
       "type": "app",
@@ -9852,7 +9819,6 @@
         "type": "static"
       }
     ],
-    ".vercel": [],
     "mymovielist": [
       {
         "source": "mymovielist",
@@ -9872,6 +9838,11 @@
       {
         "source": "mymovielist",
         "target": "npm:body-parser",
+        "type": "static"
+      },
+      {
+        "source": "mymovielist",
+        "target": "npm:classnames",
         "type": "static"
       },
       {
@@ -10157,11 +10128,6 @@
       {
         "source": "mymovielist",
         "target": "npm:vitest",
-        "type": "static"
-      },
-      {
-        "source": "mymovielist",
-        "target": "npm:classnames",
         "type": "static"
       }
     ],
