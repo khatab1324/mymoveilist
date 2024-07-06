@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:prod": "NODE_ENV=prod node ./mysql.js",
-    "start:dev": "NODE_ENV=dev nodemon ./mysql.js"
+    "start:dev": "NODE_ENV=dev node ./mysql.js"
   },
   "keywords": [],
   "author": "",
