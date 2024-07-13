@@ -4,8 +4,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "start": "vite preview",
     "build": "vite build",
+    "dev": "vite",
     "start:dev": "NODE_ENV=dev nodemon src/index.js",
     "start:prod": "NODE_ENV=prod node src/index.js",
     "building": "docker-compose up -d mysql && cd src/mysqlServer && docker-compose build && cd ../ && npm start"
