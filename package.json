@@ -6,11 +6,7 @@
   "scripts": {
     "start": "vite preview",
     "build": "vite build",
-    "dev": "vite",
-    "start:dev": "NODE_ENV=dev nodemon src/index.js",
-    "start:prod": "NODE_ENV=prod node src/index.js",
-    "building": "docker-compose up -d mysql && cd src/mysqlServer && docker-compose build && cd ../ && npm start"
-  },
+    "dev": "vite" },
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.2",
