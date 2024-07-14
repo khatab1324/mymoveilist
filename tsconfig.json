@@ -26,7 +26,8 @@
   "references": [
     {
       "path": "./tsconfig.app.json"
-    }
+    },
+
   ],
   "compileOnSave": false,
   "exclude": ["node_modules", "tmp"]
